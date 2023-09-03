@@ -27,3 +27,5 @@ The expressed is executed in the following order:
 8. addition and subtraction
 
 # Planned Features
+- inverse
+- sin, cos, tan
