@@ -5,20 +5,22 @@ So, there are plenty of calculators - scientific, graphing, financial, and so on
 This is a full-on, GUI scientific calculator, complete with all the functions a software engineer would find useful. It supports entering multiple commands at once.
 
 # Progress
-The current calculator is fully functional. Currently supported operations:
+The current calculator is fully functional. Currently supports:
 - basic arithmetic (int and float)
 - multiple brackets/parentheses
+- saving and using the previous result
 - left/right shift
 - bitwise and, or, not
 - exponetial, square root
 - log base 2
 - permutation/combination (x factorial can be entered as xPx)
 - mod
+- sin, cos, tan
 
 # Operator Priority
 The expressed is executed in the following order:
 1. parentheses
-2. bitwise not, log base 2 and square root
+2. bitwise not, log₂, sqrt, trigo
 3. bitwise and, bitwise or
 4. left and right shift
 5. combination and permutation
@@ -28,4 +30,3 @@ The expressed is executed in the following order:
 
 # Planned Features
 - inverse
-- sin, cos, tan

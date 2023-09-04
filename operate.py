@@ -3,17 +3,28 @@ import math
 from data import OPERATOR_PRIORITY
 from data import NUMBERS
 from data import SINGLE_OPERAND
+from data import INTS
+from enter import sync
+
+# this file contains the functions called when '=' is pressed
 
 def single_operate(op2, operator):
     # execute operation with only 1 operands
     temp = 0
     match operator:
         case '!':
+            # bitwise not, not factorial !
             temp = ~int(op2)
         case 'L':
             temp = math.log(op2, 2)
         case '√':
             temp = math.sqrt(op2)
+        case 's':
+            temp = math.sin(op2)
+        case 'c':
+            temp = math.cos(op2)
+        case 't':
+            temp = math.cos(op2)
     if int(temp) == temp:
         return int(temp)
     else:
@@ -129,6 +140,7 @@ def exe_each(screen, begin):
                         # handles wrong input
                         result = "INPUT ERROR"
                 if not isinstance(result, int) and not isinstance(result, float):
+                    # handle math error, eg. divide by zero
                     screen['text'] = result
                     return
                 # replace the expression with result
@@ -146,18 +158,22 @@ def exe_each(screen, begin):
         index] + screen['text'][index+1:]
 
 
-def exe(screen, history, para_list, para_stack):
-    # execute the operations
-    # check if all brackets are closed
+def exe(screen, expr, history, para_list, para_stack, answer):
+    # execute the expression
+    # check if all brackets are closed and errors
     if len(para_stack) > 0:
-        screen['text'] == "ERROR"
+        expr['text'] == "ERROR"
         para_stack.clear()
         return
-    if screen['text'] == "ERROR":
+    if expr['text'] == "ERROR":
         return
     history['text'] = screen['text']
+    # sort the para_list and execute inside brackets first
     para_list.sort(reverse=True)
     for each in para_list:
-        exe_each(screen, each)
-    exe_each(screen, 0)
+        exe_each(expr, each)
+    exe_each(expr, 0)
     para_list.clear()
+    # save current answer and sync with the screen
+    answer[0] = expr['text']
+    sync(screen, expr)
