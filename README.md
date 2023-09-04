@@ -1,8 +1,6 @@
-# Software_Engineers'_Calculator
+# CS_Scientific_Calculator
 
-So, there are plenty of calculators - scientific, graphing, financial, and so on. What would happen if there is a calculator designed for software engineer?
-
-This is a full-on, GUI scientific calculator, complete with all the functions a software engineer would find useful. It supports entering multiple commands at once.
+This is a GUI scientific calculator programmed in Python, complete with special functions a computing scientist or software engineer would find useful. This program allows for expression of unlimited size (limited only by the memory size of the operating PC).
 
 # Progress
 The current calculator is fully functional. Currently supports:
@@ -18,9 +16,9 @@ The current calculator is fully functional. Currently supports:
 - sin, cos, tan
 
 # Operator Priority
-The expressed is executed in the following order:
+The expressions are executed in the following order:
 1. parentheses
-2. bitwise not, log₂, sqrt, trigo
+2. bitwise not, log₂, sqrt, sin, cos, tan
 3. bitwise and, bitwise or
 4. left and right shift
 5. combination and permutation
