@@ -129,7 +129,7 @@ def exe_each(screen, begin):
                         # handles wrong input
                         result = "INPUT ERROR"
                 if not isinstance(result, int) and not isinstance(result, float):
-                    screen['text'] = "ERROR"
+                    screen['text'] = result
                     return
                 # replace the expression with result
                 screen['text'] = screen['text'][:start] + str(result
