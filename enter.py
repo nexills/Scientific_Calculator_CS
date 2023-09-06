@@ -3,6 +3,7 @@ from data import NUMBERS
 from data import SINGLE_OPERAND
 from data import SYMBOL_DICT
 from data import INTS
+from data import MODS
 
 # this file contains all the functions called when a button is pressed,
 # with the exception of '='
@@ -15,7 +16,7 @@ def sync(screen, expr):
 
 def enter(screen, expr, text):
     # enter text to the screen
-    # text must be neither a 1-operand op nor bracket
+    # text must be neither a unary op nor bracket
     if expr['text'] == '0':
         # replace the initial '0' on screen with text
         # but do so only if text is not an operator
@@ -36,6 +37,12 @@ def enter(screen, expr, text):
                 if expr['text'][-1] in INTS:
                     # a decimal point can only be added to numbers
                     expr['text'] = expr['text'] + text
+            elif expr['text'][-1] in MODS:
+                # add a 'x' before
+                expr['text'] = expr['text'] + '×' + text
+            elif expr['text'][-1] == ')':
+                # add a 'x' before
+                expr['text'] = expr['text'] + '×' + text
             else:
                 expr['text'] = expr['text'] + text
         else:
@@ -48,6 +55,12 @@ def enter(screen, expr, text):
                 # exception 2: when following a close bracket
                 elif expr['text'][-1] == ')':
                     expr['text'] = expr['text'] + text
+                # exception 3: '-' follows '('
+                elif expr['text'][-1] == '(' and text == '-':
+                    expr['text'] = expr['text'] + text
+                # exception 4: following a MODS
+                elif expr['text'][-1] in MODS:
+                    expr['text'] = expr['text'] + text
                 else: 
                     return
             else:
@@ -56,7 +69,7 @@ def enter(screen, expr, text):
 
 def enter_single(screen, expr, text, para_stack, para_list):
     # enter text to the screen
-    # text must be an operator on a single number (1-operand op)
+    # text must be an unary op
     if expr['text'] == '0':
         # remove the initial '0' on screen
         expr['text'] = text
@@ -73,16 +86,29 @@ def enter_single(screen, expr, text, para_stack, para_list):
                 # add 'x' before a 1-operand op
                 expr['text'] = expr['text'] + '×' + text
                 enter_para(screen, expr, '(', para_stack, para_list)
+            elif expr['text'][-1] in MODS:
+                expr['text'] = expr['text'] + '×' + text
+                enter_para(screen, expr, '(', para_stack, para_list)
             # otherwise simply add
             else:
                 expr['text'] = expr['text'] + text
                 enter_para(screen, expr, '(', para_stack, para_list)
-        # if a 1-operand operator follow a number, auto add a '×' before it
+        # if an unary operator follow a number, auto add a '×' before it
         elif (text != '-' and text in SINGLE_OPERAND):
             expr['text'] = expr['text'] + '×' + text
             enter_para(screen, expr, '(', para_stack, para_list)
     sync(screen, expr)
 
+def enter_sup(screen, expr, text):
+    # enter a superscript, such as powers
+    if expr['text'] == '0':
+        return
+    else:
+        if expr['text'][-1] in INTS or expr['text'][-1] == ')':
+            expr['text'] = expr['text'] + text
+        else:
+            return
+    sync(screen, expr)
 
 def enter_para(screen, expr, text, para_stack, para_list):
     # enter either '(' or ')' to the screen
@@ -105,8 +131,9 @@ def enter_para(screen, expr, text, para_stack, para_list):
         if len(para_stack) <= 0:
             # if no '(', do nothing
             return
-        if expr['text'][-1] in INTS or expr['text'][-1] == ')':
-            # can only add if it follows a int or ')'
+        if expr['text'][-1] in INTS or expr['text'][-1] == ')' or \
+        expr['text'][-1] in MODS:
+            # can only add if it follows a int or ')' or a MODS
             expr['text'] = expr['text'] + text
             # update the stack and list
             para_list.append(para_stack[-1])

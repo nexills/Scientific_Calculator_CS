@@ -5,11 +5,12 @@ from data import NUMBERS
 from data import SINGLE_OPERAND
 from data import INTS
 from enter import sync
+from data import MODS
 
 # this file contains the functions called when '=' is pressed
 
 def single_operate(op2, operator):
-    # execute operation with only 1 operands
+    # execute unary operation
     temp = 0
     match operator:
         case '!':
@@ -18,6 +19,8 @@ def single_operate(op2, operator):
         case 'L':
             temp = math.log(op2, 2)
         case '√':
+            if op2 < 0:
+                return "MATH ERROR"
             temp = math.sqrt(op2)
         case 's':
             temp = math.sin(op2)
@@ -25,11 +28,31 @@ def single_operate(op2, operator):
             temp = math.cos(op2)
         case 't':
             temp = math.cos(op2)
+        case 'X':
+            temp = 2 ** op2
     if int(temp) == temp:
         return int(temp)
     else:
         return temp
 
+def operate_mod(op1, operator):
+    # execute an operation that operates the number before
+    temp = 0
+    match operator:
+        case 'I':
+            temp = 1/op1
+        case 'Q':
+            temp = op1 * op1
+        case 'B':
+            temp = op1 ** 3
+        case 'E':
+            if op1 < 0:
+                return "MATH ERROR"
+            temp = math.factorial(int(op1))
+    if int(temp) == temp:
+        return int(temp)
+    else:
+        return temp
 
 def operate(op1, op2, operator):
     # execute a individual operation, given the operands
@@ -55,11 +78,16 @@ def operate(op1, op2, operator):
             temp = int(op1) & int(op2)
         case '|':
             temp = int(op1) | int(op2)
+        case 'D':
+            temp = int(op1) ^ int(op2)
         # scientific operations
         case '^':
             temp = op1 ** op2
         case '%':
             temp = op1 % op2
+        case 'S':
+            # xth root
+            temp = op2 ** (1/op1)
         # probability operations
         # where op1 is n, op2 is r
         case 'P':
@@ -119,7 +147,7 @@ def exe_each(screen, begin):
                 # calculating
                 if start - index == 0:
                     if operator in SINGLE_OPERAND and operator != '-':
-                        # handle operator with only 1 operands
+                        # handle unary operators
                         try:
                             operand2 = float(screen['text'][index+1:end+1])
                             result = single_operate(operand2, operator)
@@ -130,6 +158,13 @@ def exe_each(screen, begin):
                         # as minus sign will call this part
                         index += 1
                         continue
+                elif operator in MODS:
+                    # dealing with operator that modifies on the number before
+                    try:
+                        operand1 = float(screen['text'][start:index])
+                        result = operate_mod(operand1, operator)
+                    except:
+                        result = "ERROR"
                 else:
                     # getting the two operands and operating
                     try:
