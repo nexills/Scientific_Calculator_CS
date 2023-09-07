@@ -29,6 +29,11 @@ The expressions are executed in the following order:
 8. addition and subtraction
 
 # Background
+I wanted to recreate something that I often used at school, and a calculator is doubtlessly near the top of that list. My goal was to create one that is user-friendly and useful, so I settled on creating a scientific calculator supporting many functions. As a twist, I added special functions that are almost exclusively used in computer science, like bitwise shifts and logic gates.
+
+I used Python, specifically the tkinker library, to create this project. It is relatively easy to produce a functional GUI with tkinter, compared to other popular languages like C++/Java. Python provides string slicing, which is extremely helpful in this project.
+
+My main takeaway from this project is learning project management. I learnt how to develop a solution, create a layout and categorize different codes. Planning ahead helped me significantly for this project, as it helped me to focus on what to do that one moment and follow a plan step-to-step.
 
 # Build Instructions (Windows)
 1. Install Python and Pip
