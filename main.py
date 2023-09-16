@@ -86,7 +86,7 @@ if __name__ == '__main__':
     clear = tk.Button(gui, text='Clr', font=std_font, command=lambda: enter.clear(screen, expression, history
                     , para_list, para_stack), bg='black', fg='red', width=4)
     delete = tk.Button(gui, text='Del', font=std_font, command=lambda: enter.delete(screen, expression
-                    , para_list, para_stack, answer), bg='black', fg='grey', width=4)
+                    , para_list, para_stack), bg='black', fg='grey', width=4)
     add.grid(row=11,column=6, sticky="nswe")
     min.grid(row=11,column=7, sticky="nswe")
     mul.grid(row=10,column=6, sticky="nswe")

@@ -179,8 +179,13 @@ def exe_each(screen, begin):
                     screen['text'] = result
                     return
                 # replace the expression with result
-                screen['text'] = screen['text'][:start] + str(result
+                if operator in MODS:
+                    screen['text'] = screen['text'][:start] + str(result
+                                ) + screen['text'][end:]
+                else:
+                    screen['text'] = screen['text'][:start] + str(result
                                 ) + screen['text'][end+1:]
+                    
                 # reset index
                 index = begin
                 # check for cases where negative result follow a '-' operator

@@ -10,6 +10,8 @@ from data import MODS
 
 def sync(screen, expr):
     # this function sync the screen to the new expression
+    if "ERROR" in screen['text']:
+        return
     screen['text'] = expr['text']
     for each_exp in SYMBOL_DICT:
         screen['text'] = screen['text'].replace(each_exp, SYMBOL_DICT[each_exp])
@@ -161,7 +163,7 @@ def clear(screen, expr, history, para_list, para_stack):
     para_list.clear()
     sync(screen, expr)
 
-def delete(screen, expr, para_list, para_stack, answer):
+def delete(screen, expr, para_list, para_stack):
     # delete the latest char from the expression
     if len(expr['text']) > 1:
         if expr['text'][-1] == '(':
