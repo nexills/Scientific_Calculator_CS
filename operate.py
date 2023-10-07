@@ -202,10 +202,12 @@ def exe(screen, expr, history, para_list, para_stack, answer):
     # execute the expression
     # check if all brackets are closed and errors
     if len(para_stack) > 0:
-        expr['text'] == "ERROR"
+        expr['text'] = "ERROR"
+        screen['text'] = "ERROR"
         para_stack.clear()
         return
     if expr['text'] == "ERROR":
+        screen['text'] = "ERROR"
         return
     history['text'] = screen['text']
     # sort the para_list and execute inside brackets first

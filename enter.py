@@ -10,7 +10,8 @@ from data import MODS
 
 def sync(screen, expr):
     # this function sync the screen to the new expression
-    if "ERROR" in screen['text']:
+    if "ERROR" in expr['text']:
+        screen['text'] = expr['text']
         return
     screen['text'] = expr['text']
     for each_exp in SYMBOL_DICT:

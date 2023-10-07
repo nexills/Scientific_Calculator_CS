@@ -86,6 +86,14 @@ def functionTest():
     print(screen["text"], "passed!")
     assert(math.fabs(float(screen['text']) - 367) < 0.001)
     enter.clear(screen, expression, history, para_list, para_stack)
+
+    for i in "-31&11":
+        enter.enter(screen, expression, i)
+    print(screen['text'], end = ' = ')
+    operate.exe(screen, expression, history, para_list, para_stack, answer)
+    print(screen["text"], "passed!")
+    assert(math.fabs(float(screen['text']) - 1) < 0.001)
+    enter.clear(screen, expression, history, para_list, para_stack)
     
     for i in "-9|11D18":
         enter.enter(screen, expression, i)
@@ -204,9 +212,29 @@ def bracketTest():
     print(screen["text"], "passed!")
     assert(math.fabs(float(screen['text']) - -165578.8) < 0.001)
     enter.clear(screen, expression, history, para_list, para_stack)
+    
+    # tests for bracket "36÷(-5&11|(71×(9+1)))"
+    for i in "36÷":
+        enter.enter(screen, expression, i)
+    enter.enter_para(screen,expression, '(', para_stack, para_list)
+    for i in "-5&11|":
+        enter.enter(screen, expression, i)
+    enter.enter_para(screen,expression, '(', para_stack, para_list)
+    for i in "71×":
+        enter.enter(screen, expression, i)
+    enter.enter_para(screen,expression, '(', para_stack, para_list)
+    for i in "9+1":
+        enter.enter(screen, expression, i)
+    enter.enter_para(screen,expression, ')', para_stack, para_list)
+    enter.enter_para(screen,expression, ')', para_stack, para_list)
+    enter.enter_para(screen,expression, ')', para_stack, para_list)
+    print(screen['text'], end = ' = ')
+    operate.exe(screen, expression, history, para_list, para_stack, answer)
+    print(screen["text"], "passed!")
+    assert(math.fabs(float(screen['text']) - 0.0500695) < 0.001)
+    enter.clear(screen, expression, history, para_list, para_stack)
 
-def otherTest():
-    # test other special functions
+def superscriptTest():
     # test for power
     enter.enter(screen, expression, "9")
     enter.enter_sup(screen, expression, 'I')
@@ -219,6 +247,101 @@ def otherTest():
     assert(math.fabs(float(screen['text']) - 1626.77778) < 0.001)
     enter.clear(screen, expression, history, para_list, para_stack)
 
+    for i in "36":
+        enter.enter(screen, expression, i)
+    enter.enter_sup(screen, expression, 'Q')
+    print(screen['text'], end = ' = ')
+    operate.exe(screen, expression, history, para_list, para_stack, answer)
+    print(screen["text"], "passed!")
+    assert(math.fabs(float(screen['text']) - 1296) < 0.001)
+    enter.clear(screen, expression, history, para_list, para_stack)
+
+    for i in "36":
+        enter.enter(screen, expression, i)
+    enter.enter_sup(screen, expression, 'I')
+    print(screen['text'], end = ' = ')
+    operate.exe(screen, expression, history, para_list, para_stack, answer)
+    print(screen["text"], "passed!")
+    assert(math.fabs(float(screen['text']) - 0.0277778) < 0.001)
+    enter.clear(screen, expression, history, para_list, para_stack)
+    
+    for i in "36":
+        enter.enter(screen, expression, i)
+    enter.enter_sup(screen, expression, 'B')
+    print(screen['text'], end = ' = ')
+    operate.exe(screen, expression, history, para_list, para_stack, answer)
+    print(screen["text"], "passed!")
+    assert(math.fabs(float(screen['text']) - 46656) < 0.001)
+    enter.clear(screen, expression, history, para_list, para_stack)
+
+def otherTest():
+    # test delete function
+    for i in "36+71":
+        enter.enter(screen, expression, i)
+    enter.delete(screen, expression, para_list, para_stack)
+    print(screen['text'], end = ' = ')
+    operate.exe(screen, expression, history, para_list, para_stack, answer)
+    print(screen["text"], "passed!")
+    assert(math.fabs(float(screen['text']) - 43) < 0.001)
+    enter.clear(screen, expression, history, para_list, para_stack)
+
+    # "36÷(-5&12|(71×2))" -> 36÷(-5&12)
+    for i in "36÷":
+        enter.enter(screen, expression, i)
+    enter.enter_para(screen,expression, '(', para_stack, para_list)
+    for i in "-5&12|":
+        enter.enter(screen, expression, i)
+    enter.enter_para(screen,expression, '(', para_stack, para_list)
+    for i in "71×2":
+        enter.enter(screen, expression, i)
+    enter.enter_para(screen,expression, ')', para_stack, para_list)
+    enter.enter_para(screen,expression, ')', para_stack, para_list)
+    for i in range(8):
+        enter.delete(screen, expression, para_list, para_stack)
+    enter.enter_para(screen,expression, ')', para_stack, para_list)
+    print(screen['text'], end = ' = ')
+    operate.exe(screen, expression, history, para_list, para_stack, answer)
+    print(screen["text"], "passed!")
+    assert(math.fabs(float(screen['text']) - 4.5) < 0.001)
+    enter.clear(screen, expression, history, para_list, para_stack)
+
+    # test answer function
+    enter.enter_ans(screen, expression, answer)
+    for i in "×3.2":
+        enter.enter(screen, expression, i)
+    print(screen['text'], end = ' = ')
+    operate.exe(screen, expression, history, para_list, para_stack, answer)
+    print(screen["text"], "passed!")
+    assert(math.fabs(float(screen['text']) - 14.4) < 0.001)
+    enter.clear(screen, expression, history, para_list, para_stack)
+
+    # test illegal entry
+    for i in "67×+-":
+        enter.enter(screen, expression, i)
+    print(screen['text'], end = ' = ')
+    operate.exe(screen, expression, history, para_list, para_stack, answer)
+    print(screen["text"], "passed!")
+    assert("ERROR" in screen['text'])
+    enter.clear(screen, expression, history, para_list, para_stack)
+
+    for i in "6×..8":
+        enter.enter(screen, expression, i)
+    print(screen['text'], end = ' = ')
+    operate.exe(screen, expression, history, para_list, para_stack, answer)
+    print(screen["text"], "passed!")
+    assert(math.fabs(float(screen['text']) - 48) < 0.001)
+    enter.clear(screen, expression, history, para_list, para_stack)
+    
+    for i in "6×.":
+        enter.enter(screen, expression, i)
+    enter.enter_para(screen,expression, '(', para_stack, para_list)
+    enter.enter_para(screen,expression, ')', para_stack, para_list)
+    print(screen['text'], end = ' = ')
+    operate.exe(screen, expression, history, para_list, para_stack, answer)
+    print(screen["text"], "passed!")
+    assert("ERROR" in screen['text'])
+    enter.clear(screen, expression, history, para_list, para_stack)
+
 
 if __name__ == '__main__':
 
@@ -226,5 +349,6 @@ if __name__ == '__main__':
     functionTest()
     unaryTest()
     bracketTest()
+    superscriptTest()
     otherTest()
 
