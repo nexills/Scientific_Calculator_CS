@@ -1,6 +1,6 @@
-# CS_Scientific_Calculator
+# Scientific_Calculator_CS
 
-This is a GUI scientific calculator programmed in Python, complete with most functions available on a typical scientific calculator, as well as some special functions a computer scientist would fine useful.
+This is a GUI scientific calculator programmed in Python, complete with most functions available on a typical scientific calculator, as well as some special functions a computer scientist would find useful.
 
 # Progress
 The current calculator is fully functional. Currently supports 28 functions:
@@ -33,7 +33,7 @@ I wanted to recreate something that I often used at school, and a calculator is 
 
 I used Python, specifically the tkinker library, to create this project. It is relatively easy to produce a functional GUI with tkinter, compared to other popular languages like C++/Java. Python provides string slicing, which is extremely helpful in this project.
 
-My main takeaway from this project is learning project management. I learnt how to develop a solution, create a layout and categorize different codes. Planning ahead helped me significantly for this project, as it helped me to focus on what to do that one moment and follow a plan step-to-step.
+My main takeaway from this project is learning project management. I learnt how to develop a solution, create a layout and categorize different codes. Planning ahead helped me significantly for this project, as it helped me to focus on what to do that one moment and follow a plan step-to-step. Other than that, I learnt how to test codes - to test code is to try to break it, rather than proving it works.
 
 # Build Instructions (Windows)
 1. Install Python and Pip
