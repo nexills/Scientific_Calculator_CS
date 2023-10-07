@@ -1,6 +1,6 @@
 # CS_Scientific_Calculator
 
-This is a GUI scientific calculator programmed in Python, complete with special functions a computing scientist or software engineer would find useful. This program allows for expression of unlimited size (limited only by the memory size of the operating PC).
+This is a GUI scientific calculator programmed in Python, complete with most functions available on a typical scientific calculator, as well as some special functions a computer scientist would fine useful.
 
 # Progress
 The current calculator is fully functional. Currently supports 28 functions:
