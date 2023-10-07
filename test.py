@@ -122,7 +122,7 @@ def functionTest():
 
 
 def unaryTest():
-    # test for unary operators
+    # test for unary operators √ and sin
     for i in "3.15+96":
         enter.enter(screen, expression, i)
     enter.enter_single(screen, expression,'√', para_stack, para_list)
@@ -137,9 +137,52 @@ def unaryTest():
     assert(math.fabs(float(screen['text']) - 1052.15) < 0.001)
     enter.clear(screen, expression, history, para_list, para_stack)
 
-def priorityTest():
-    # test operator priority
-    pass
+    # test ! (E), log, cos, tan, 2^x
+    enter.enter(screen, expression, '5')
+    enter.enter_sup(screen, expression, 'E')
+    print(screen['text'], end = ' = ')
+    operate.exe(screen, expression, history, para_list, para_stack, answer)
+    print(screen["text"], "passed!")
+    assert(math.fabs(float(screen['text']) - 120) < 0.001)
+    enter.clear(screen, expression, history, para_list, para_stack)
+
+    enter.enter_single(screen, expression, 'L', para_stack, para_list)
+    enter.enter(screen, expression, '1')
+    enter.enter(screen, expression, '8')
+    enter.enter_para(screen,expression, ')', para_stack, para_list)
+    print(screen['text'], end = ' = ')
+    operate.exe(screen, expression, history, para_list, para_stack, answer)
+    print(screen["text"], "passed!")
+    assert(math.fabs(float(screen['text']) - 4.16993) < 0.001)
+    enter.clear(screen, expression, history, para_list, para_stack)
+
+    enter.enter_single(screen, expression, 'c', para_stack, para_list)
+    enter.enter(screen, expression, '1')
+    enter.enter(screen, expression, '1')
+    enter.enter_para(screen,expression, ')', para_stack, para_list)
+    print(screen['text'], end = ' = ')
+    operate.exe(screen, expression, history, para_list, para_stack, answer)
+    print(screen["text"], "passed!")
+    assert(math.fabs(float(screen['text']) - 0.004426) < 0.001)
+    enter.clear(screen, expression, history, para_list, para_stack)
+    
+    enter.enter_single(screen, expression, 't', para_stack, para_list)
+    enter.enter(screen, expression, '7')
+    enter.enter_para(screen,expression, ')', para_stack, para_list)
+    print(screen['text'], end = ' = ')
+    operate.exe(screen, expression, history, para_list, para_stack, answer)
+    print(screen["text"], "passed!")
+    assert(math.fabs(float(screen['text']) - 0.871448) < 0.001)
+    enter.clear(screen, expression, history, para_list, para_stack)
+    
+    enter.enter_single(screen, expression, 'X', para_stack, para_list)
+    enter.enter(screen, expression, '5')
+    enter.enter_para(screen,expression, ')', para_stack, para_list)
+    print(screen['text'], end = ' = ')
+    operate.exe(screen, expression, history, para_list, para_stack, answer)
+    print(screen["text"], "passed!")
+    assert(math.fabs(float(screen['text']) - 32) < 0.001)
+    enter.clear(screen, expression, history, para_list, para_stack)
 
 def bracketTest():
     # test bracket
@@ -182,7 +225,6 @@ if __name__ == '__main__':
     basicTest()
     functionTest()
     unaryTest()
-    priorityTest()
     bracketTest()
     otherTest()
 

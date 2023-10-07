@@ -27,7 +27,7 @@ def single_operate(op2, operator):
         case 'c':
             temp = math.cos(op2)
         case 't':
-            temp = math.cos(op2)
+            temp = math.tan(op2)
         case 'X':
             temp = 2 ** op2
     if int(temp) == temp:
