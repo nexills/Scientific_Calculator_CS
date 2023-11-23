@@ -17,12 +17,61 @@ answer = ['0']
 
 def basicTest():
     # a collection of basic test testing the general functionalities
+    for i in "3+19":
+        enter.enter(screen, expression, i)
+    print(screen['text'], end = ' = ')
+    operate.exe(screen, expression, history, para_list, para_stack, answer)
+    print(screen["text"], "passed!")
+    assert(math.fabs(float(screen['text']) - 22) < 0.001)
+    enter.clear(screen, expression, history, para_list, para_stack)
+
+    for i in "41-17":
+        enter.enter(screen, expression, i)
+    print(screen['text'], end = ' = ')
+    operate.exe(screen, expression, history, para_list, para_stack, answer)
+    print(screen["text"], "passed!")
+    assert(math.fabs(float(screen['text']) - 24) < 0.001)
+    enter.clear(screen, expression, history, para_list, para_stack)
+
+    for i in "18×61":
+        enter.enter(screen, expression, i)
+    print(screen['text'], end = ' = ')
+    operate.exe(screen, expression, history, para_list, para_stack, answer)
+    print(screen["text"], "passed!")
+    assert(math.fabs(float(screen['text']) - 1098) < 0.001)
+    enter.clear(screen, expression, history, para_list, para_stack)
+
+    for i in "112÷19":
+        enter.enter(screen, expression, i)
+    print(screen['text'], end = ' = ')
+    operate.exe(screen, expression, history, para_list, para_stack, answer)
+    print(screen["text"], "passed!")
+    assert(math.fabs(float(screen['text']) - 5.8947) < 0.001)
+    enter.clear(screen, expression, history, para_list, para_stack)
+
     for i in "1+2+3-6-9":
         enter.enter(screen, expression, i)
     print(screen['text'], end = ' = ')
     operate.exe(screen, expression, history, para_list, para_stack, answer)
     print(screen["text"], "passed!")
     assert(math.fabs(float(screen['text']) - -9) < 0.001)
+    enter.clear(screen, expression, history, para_list, para_stack)
+
+    for i in "--1+68--2×4":
+        enter.enter(screen, expression, i)
+    print(screen['text'], end = ' = ')
+    operate.exe(screen, expression, history, para_list, para_stack, answer)
+    print(screen["text"], "passed!")
+    assert(math.fabs(float(screen['text']) - 77) < 0.001)
+    enter.clear(screen, expression, history, para_list, para_stack)
+
+    # '-' before 2x4 is invalid
+    for i in "-+1+68+-2×4":
+        enter.enter(screen, expression, i)
+    print(screen['text'], end = ' = ')
+    operate.exe(screen, expression, history, para_list, para_stack, answer)
+    print(screen["text"], "passed!")
+    assert(math.fabs(float(screen['text']) - 75) < 0.001)
     enter.clear(screen, expression, history, para_list, para_stack)
 
     for i in "2×6×7+1÷3":

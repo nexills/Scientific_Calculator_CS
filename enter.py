@@ -54,7 +54,10 @@ def enter(screen, expr, text):
                 # entering two operators in a row is not allowed, in general
                 # exception 1: when entering 2 '-', treat it as positive
                 if text == '-' and expr['text'][-1] == '-':
-                    expr['text'] = expr['text'][:-1]
+                    if expr['text'][:-1] == "":
+                        expr['text'] = "0"
+                    else:
+                        expr['text'] = expr['text'][:-1] + '+'
                 # exception 2: when following a close bracket
                 elif expr['text'][-1] == ')':
                     expr['text'] = expr['text'] + text
